@@ -1,1 +1,1 @@
-# react-super-state
+# React Super State
