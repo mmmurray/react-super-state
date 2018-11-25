@@ -18,7 +18,6 @@ const context = React.createContext<Context>({
 })
 
 function SuperStateProvider<T>({
-  reducers,
   initialState,
   children,
 }: SuperStateProviderProps<T>) {
@@ -40,14 +39,7 @@ function SuperStateProvider<T>({
   )
 }
 
-const useSuperState = (): { dispatch: Dispatch<any>; state: any } => {
-  const dispatch = () => {}
-  const state = {}
-
-  return {
-    dispatch,
-    state,
-  }
-}
+const useSuperState = (): { dispatch: Dispatch<any>; state: any } =>
+  React.useContext(context)
 
 export { useSuperState, SuperStateProvider }
