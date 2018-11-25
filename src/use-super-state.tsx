@@ -1,4 +1,4 @@
-import * as React from 'React'
+import * as React from 'react'
 
 type Reducer<T> = (state: T, action: any) => T
 type Map<T> = { [s: string]: T }
