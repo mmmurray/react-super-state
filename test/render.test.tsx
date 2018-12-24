@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { fireEvent, render } from 'react-testing-library'
-import { useSuperState, SuperStateProvider } from '../src'
+import createSuperState from '../src'
 
 type State = {
   count: number
 }
 
-const initialState = {
+const initialState: State = {
   count: 0,
 }
 
@@ -19,11 +19,14 @@ const reducers = {
 }
 
 test('can use super state', () => {
+  const { useSuperState, Provider } = createSuperState(reducers, initialState)
+
   const Counter = () => {
-    const { dispatch, state } = useSuperState()
+    const { actions, state } = useSuperState()
+
     return (
       <div>
-        <button onClick={() => dispatch(reducers.increment)}>
+        <button onClick={() => actions.increment()}>
           Clicked {state.count} time(s)
         </button>
       </div>
@@ -31,9 +34,9 @@ test('can use super state', () => {
   }
 
   const { getByText } = render(
-    <SuperStateProvider initialState={initialState} reducers={reducers}>
+    <Provider>
       <Counter />
-    </SuperStateProvider>,
+    </Provider>,
   )
 
   const button = getByText('Clicked 0 time(s)')
@@ -43,12 +46,15 @@ test('can use super state', () => {
   getByText('Clicked 1 time(s)')
 })
 
-test('state is empty when not wrapped in a provider', () => {
+test('state is initial and immutable when not wrapped in a provider', () => {
+  const { useSuperState } = createSuperState(reducers, initialState)
+
   const Counter = () => {
-    const { dispatch, state } = useSuperState()
+    const { actions, state } = useSuperState()
+
     return (
       <div>
-        <button onClick={() => dispatch(reducers.increment)}>
+        <button onClick={() => actions.increment()}>
           Clicked {state.count} time(s)
         </button>
       </div>
@@ -57,19 +63,21 @@ test('state is empty when not wrapped in a provider', () => {
 
   const { getByText } = render(<Counter />)
 
-  const button = getByText('Clicked time(s)')
+  const button = getByText('Clicked 0 time(s)')
 
   fireEvent.click(button)
 
-  getByText('Clicked 1 time(s)')
+  getByText('Clicked 0 time(s)')
 })
 
 test('can pass value to reducer', () => {
+  const { useSuperState, Provider } = createSuperState(reducers, initialState)
+
   const Counter = () => {
-    const { dispatch, state } = useSuperState()
+    const { actions, state } = useSuperState()
     return (
       <div>
-        <button onClick={() => dispatch(reducers.add, { amount: 22 })}>
+        <button onClick={() => actions.add({ amount: 22 })}>
           Clicked {state.count} time(s)
         </button>
       </div>
@@ -77,9 +85,9 @@ test('can pass value to reducer', () => {
   }
 
   const { getByText } = render(
-    <SuperStateProvider initialState={initialState} reducers={reducers}>
+    <Provider>
       <Counter />
-    </SuperStateProvider>,
+    </Provider>,
   )
 
   const button = getByText('Clicked 0 time(s)')
