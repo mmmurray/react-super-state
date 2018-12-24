@@ -9,6 +9,8 @@ A state management library using hooks.
 
 ## Usage
 
+[![Edit 01lyjy810p](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/01lyjy810p)
+
 ```js
 import React from 'react'
 import { render } from 'react-dom'
