@@ -1,6 +1,6 @@
 {
   "name": "react-super-state",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A state management library using hooks.",
   "author": "Mark Murray <mark@murray.xyz>",
   "license": "MIT",
