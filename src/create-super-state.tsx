@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-type Reducer<S> = (state: S, payload?: any) => S
+type Reducer<S> = (state: Readonly<S>, payload?: any) => S
 type ReducerPayloadType<S, R extends Function> = R extends (
   state: S,
   payload: infer P,
@@ -29,7 +29,10 @@ function createSuperState<S, R extends { [name: string]: Reducer<S> }>(
     {} as Actions,
   )
 
-  const context = React.createContext<{ actions: Actions; state: S }>({
+  const context = React.createContext<{
+    actions: Readonly<Actions>
+    state: Readonly<S>
+  }>({
     actions: defaultActions,
     state: initialState,
   })
