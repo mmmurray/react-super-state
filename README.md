@@ -12,31 +12,38 @@ A state management library using hooks.
 ```js
 import React from 'react'
 import { render } from 'react-dom'
-import { useSuperState, SuperStateProvider } from 'react-super-state'
+import createSuperState from 'react-super-state'
 
 const initialState = {
-  count: 0,
+  value: 0,
 }
 
 const reducers = {
-  increment: state => ({ ...state, count: state.count + 1 }),
+  add: (state, payload) => ({
+    ...state,
+    value: state.value + payload.amount,
+  }),
 }
 
-const Counter = () => {
-  const { state, dispatch } = useSuperState()
+const { useSuperState, Provider } = createSuperState(reducers, initialState)
 
-  return (
-    <button onClick={() => dispatch(reducers.increment)}>
-      Clicked {state.count} times
-    </button>
-  )
+const Display = () => {
+  const { state } = useSuperState()
+
+  return <span>Value is: {state.value}</span>
+}
+
+const Add = ({ amount }) => {
+  const { actions } = useSuperState()
+
+  return <button onClick={() => actions.add({ amount })}>Add {amount}</button>
 }
 
 const App = () => (
-  <SuperStateProvider initialState={initialState}>
-    <Counter />
-    <Counter />
-    <Counter />
+  <SuperStateProvider>
+    <Display />
+    <Add amount={1} />
+    <Add amount={10} />
   </SuperStateProvider>
 )
 
