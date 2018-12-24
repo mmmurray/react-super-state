@@ -1,1 +1,1 @@
-export * from './use-super-state'
+export { default } from './create-super-state'
