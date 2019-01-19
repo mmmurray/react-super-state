@@ -22,14 +22,24 @@ type InternalState<S> = {
   statePointer: number
 }
 
+const undoReducer = (state: any) => state
+const redoReducer = (state: any) => state
+
 const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
   reducers: R,
   initialState: S,
 ) => {
   const internalReducer = (
     { states, statePointer }: InternalState<S>,
-    { reducer, payload }: { reducer: Reducer<S>; payload: any },
+    { reducer, payload }: { reducer: Reducer<S>; payload?: any },
   ) => {
+    if (reducer === undoReducer) {
+      return {
+        states,
+        statePointer: statePointer - 1,
+      }
+    }
+
     return {
       states: [...states, reducer(states[statePointer], payload)],
       statePointer: statePointer + 1,
@@ -84,7 +94,7 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
         value: {
           actions,
           state: states[statePointer],
-          undo: () => {},
+          undo: () => dispatch({ reducer: undoReducer }),
           redo: () => {},
           canUndo: statePointer > 0,
           canRedo: false,
