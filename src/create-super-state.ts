@@ -22,10 +22,10 @@ type InternalState<S> = {
   statePointer: number
 }
 
-function createSuperState<S, R extends { [name: string]: Reducer<S> }>(
+const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
   reducers: R,
   initialState: S,
-) {
+) => {
   const internalReducer = (
     state: S,
     { reducer, payload }: { reducer: Reducer<S>; payload: any },
