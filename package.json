@@ -18,11 +18,11 @@
     "react": ">16"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.9",
-    "@types/react": "^16.7.6",
-    "mmm-scripts": "^0.0.8",
-    "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2",
-    "react-testing-library": "^5.3.0"
+    "@types/jest": "^23.3.13",
+    "@types/react": "^16.7.20",
+    "mmm-scripts": "^0.0.11",
+    "react": "^16.8.0-alpha.1",
+    "react-dom": "^16.8.0-alpha.1",
+    "react-testing-library": "^5.4.4"
   }
 }
