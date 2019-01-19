@@ -67,19 +67,19 @@ function createSuperState<S, R extends { [name: string]: Reducer<S> }>(
       {} as Actions,
     )
 
-    return (
-      <context.Provider
-        value={{
+    return React.createElement(
+      context.Provider,
+      {
+        value: {
           actions,
           state,
           undo: () => {},
           redo: () => {},
           canUndo: false,
           canRedo: false,
-        }}
-      >
-        {children}
-      </context.Provider>
+        },
+      },
+      children,
     )
   }
 
