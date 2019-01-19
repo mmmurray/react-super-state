@@ -8,6 +8,15 @@ type ReducerPayloadType<S, R extends Function> = R extends (
   ? P
   : never
 
+type Context<S, A> = {
+  actions: Readonly<A>
+  state: Readonly<S>
+  undo: () => void
+  redo: () => void
+  canUndo: boolean
+  canRedo: boolean
+}
+
 function createSuperState<S, R extends { [name: string]: Reducer<S> }>(
   reducers: R,
   initialState: S,
@@ -29,12 +38,13 @@ function createSuperState<S, R extends { [name: string]: Reducer<S> }>(
     {} as Actions,
   )
 
-  const context = React.createContext<{
-    actions: Readonly<Actions>
-    state: Readonly<S>
-  }>({
+  const context = React.createContext<Context<S, Actions>>({
     actions: defaultActions,
     state: initialState,
+    undo: () => {},
+    redo: () => {},
+    canUndo: false,
+    canRedo: false,
   })
 
   const Provider: React.SFC<{}> = ({ children }) => {
@@ -53,7 +63,18 @@ function createSuperState<S, R extends { [name: string]: Reducer<S> }>(
     )
 
     return (
-      <context.Provider value={{ actions, state }}>{children}</context.Provider>
+      <context.Provider
+        value={{
+          actions,
+          state,
+          undo: () => {},
+          redo: () => {},
+          canUndo: false,
+          canRedo: false,
+        }}
+      >
+        {children}
+      </context.Provider>
     )
   }
 
