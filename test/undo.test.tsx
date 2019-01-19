@@ -29,7 +29,9 @@ const renderApp = () => {
         <input
           data-testid="input"
           value={state.value}
-          onChange={({ target: { value } }) => actions.setValue(value)}
+          onChange={({ target: { value } }) =>
+            actions.setValue(value, { undoable: true })
+          }
         />
         <button data-testid="undo" onClick={undo}>
           Can undo: {`${canUndo}`}
@@ -169,44 +171,88 @@ test('can fork history', () => {
 })
 
 test('can mix undoable and non-undoable actions', () => {
-  const { undo, redo, canUndo, canRedo, getText, pressKey } = renderApp()
+  const {
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    getText,
+    pressKey,
+    increment,
+    getCount,
+  } = renderApp()
 
+  expect(getCount()).toBe(0)
+  expect(getText()).toBe('')
+  expect(canUndo()).toBe(false)
+  expect(canRedo()).toBe(false)
+
+  increment()
+
+  expect(getCount()).toBe(1)
   expect(getText()).toBe('')
   expect(canUndo()).toBe(false)
   expect(canRedo()).toBe(false)
 
   pressKey('a')
 
+  expect(getCount()).toBe(1)
+  expect(getText()).toBe('a')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
+
+  increment()
+
+  expect(getCount()).toBe(2)
   expect(getText()).toBe('a')
   expect(canUndo()).toBe(true)
   expect(canRedo()).toBe(false)
 
   pressKey('b')
 
+  expect(getCount()).toBe(2)
   expect(getText()).toBe('ab')
   expect(canUndo()).toBe(true)
   expect(canRedo()).toBe(false)
 
   undo()
 
+  expect(getCount()).toBe(2)
+  expect(getText()).toBe('a')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(true)
+
+  increment()
+
+  expect(getCount()).toBe(3)
   expect(getText()).toBe('a')
   expect(canUndo()).toBe(true)
   expect(canRedo()).toBe(true)
 
   pressKey('z')
 
+  expect(getCount()).toBe(3)
   expect(getText()).toBe('az')
   expect(canUndo()).toBe(true)
   expect(canRedo()).toBe(false)
 
   undo()
 
+  expect(getCount()).toBe(3)
+  expect(getText()).toBe('a')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(true)
+
+  increment()
+
+  expect(getCount()).toBe(4)
   expect(getText()).toBe('a')
   expect(canUndo()).toBe(true)
   expect(canRedo()).toBe(true)
 
   redo()
 
+  expect(getCount()).toBe(4)
   expect(getText()).toBe('az')
   expect(canUndo()).toBe(true)
   expect(canRedo()).toBe(false)
