@@ -3,20 +3,14 @@ import { fireEvent, render } from 'react-testing-library'
 import createSuperState from '../src'
 
 type State = {
-  count: number
-  letter: string
   value: string
 }
 
 const initialState: State = {
-  count: 0,
-  letter: 'a',
   value: '',
 }
 
 const reducers = {
-  incrementWithUndo: (state: State) => ({ ...state, count: state.count + 1 }),
-  setLetter: (state: State, letter: string) => ({ ...state, letter }),
   setValue: (state: State, value: string) => ({ ...state, value }),
 }
 
@@ -34,11 +28,6 @@ const renderApp = () => {
           value={state.value}
           onChange={({ target: { value } }) => actions.setValue(value)}
         />
-        <button onClick={() => actions.setLetter('a')}>Set to a</button>
-        <button onClick={() => actions.setLetter('b')}>Set to b</button>
-        <button onClick={() => actions.setLetter('c')}>Set to c</button>
-        <button onClick={() => actions.setLetter('d')}>Set to d</button>
-        <span data-testid="letter">{state.letter}</span>
         <button data-testid="undo" onClick={undo}>
           Can undo: {`${canUndo}`}
         </button>
@@ -65,10 +54,6 @@ const renderApp = () => {
       })
     },
     getText,
-    setToB: getByText('Set to b'),
-    setToC: getByText('Set to c'),
-    setToD: getByText('Set to d'),
-    letter: getByTestId('letter'),
     undoButton: getByTestId('undo'),
     redoButton: getByTestId('redo'),
   }
