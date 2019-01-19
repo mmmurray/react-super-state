@@ -46,10 +46,11 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
     }
 
     const newState = reducer(states[statePointer], payload)
+    const newStates = [...states.slice(0, statePointer + 1), newState]
 
     return {
-      states: [...states, newState],
-      statePointer: statePointer + 1,
+      states: newStates,
+      statePointer: newStates.length - 1,
     }
   }
 
