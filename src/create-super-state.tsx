@@ -17,6 +17,11 @@ type Context<S, A> = {
   canRedo: boolean
 }
 
+type InternalState<S> = {
+  states: S[]
+  statePointer: number
+}
+
 function createSuperState<S, R extends { [name: string]: Reducer<S> }>(
   reducers: R,
   initialState: S,
