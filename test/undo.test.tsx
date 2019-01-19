@@ -38,7 +38,7 @@ const renderApp = () => {
     )
   }
 
-  const { getByText, getByTestId } = render(
+  const { getByTestId } = render(
     <Provider>
       <App />
     </Provider>,
