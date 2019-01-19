@@ -27,9 +27,14 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
   initialState: S,
 ) => {
   const internalReducer = (
-    state: S,
+    { states, statePointer }: InternalState<S>,
     { reducer, payload }: { reducer: Reducer<S>; payload: any },
-  ) => reducer(state, payload)
+  ) => {
+    return {
+      states: [reducer(states[statePointer], payload)],
+      statePointer,
+    }
+  }
 
   type Actions = {
     [N in keyof R]: (payload?: ReducerPayloadType<S, R[N]>) => void
@@ -53,7 +58,13 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
   })
 
   const Provider: React.SFC<{}> = ({ children }) => {
-    const [state, dispatch] = React.useReducer(internalReducer, initialState)
+    const [{ states, statePointer }, dispatch] = React.useReducer(
+      internalReducer,
+      {
+        states: [initialState],
+        statePointer: 0,
+      },
+    )
 
     const actions: Actions = Object.keys(reducers).reduce<Actions>(
       (acc: any, name) => ({
@@ -72,7 +83,7 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
       {
         value: {
           actions,
-          state,
+          state: states[statePointer],
           undo: () => {},
           redo: () => {},
           canUndo: false,
