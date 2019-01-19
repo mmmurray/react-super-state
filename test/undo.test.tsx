@@ -47,7 +47,7 @@ const renderApp = () => {
   const getText = () => getByTestId('text').textContent
 
   return {
-    keyPress: (key: string) => {
+    pressKey: (key: string) => {
       const input = getByTestId('input') as HTMLInputElement
       fireEvent.change(input, {
         target: { value: input.value + key },
@@ -60,19 +60,19 @@ const renderApp = () => {
 }
 
 test('can undo and redo', () => {
-  const { undoButton, redoButton, getText, keyPress } = renderApp()
+  const { undoButton, redoButton, getText, pressKey } = renderApp()
 
   expect(getText()).toBe('')
   expect(undoButton.textContent).toBe('Can undo: false')
   expect(redoButton.textContent).toBe('Can redo: false')
 
-  keyPress('a')
+  pressKey('a')
 
   expect(getText()).toBe('a')
   expect(undoButton.textContent).toBe('Can undo: true')
   expect(redoButton.textContent).toBe('Can redo: false')
 
-  keyPress('b')
+  pressKey('b')
 
   expect(getText()).toBe('ab')
   expect(undoButton.textContent).toBe('Can undo: true')
@@ -115,19 +115,19 @@ test('can undo and redo', () => {
 })
 
 test('can fork history', () => {
-  const { undoButton, redoButton, getText, keyPress } = renderApp()
+  const { undoButton, redoButton, getText, pressKey } = renderApp()
 
   expect(getText()).toBe('')
   expect(undoButton.textContent).toBe('Can undo: false')
   expect(redoButton.textContent).toBe('Can redo: false')
 
-  keyPress('a')
+  pressKey('a')
 
   expect(getText()).toBe('a')
   expect(undoButton.textContent).toBe('Can undo: true')
   expect(redoButton.textContent).toBe('Can redo: false')
 
-  keyPress('b')
+  pressKey('b')
 
   expect(getText()).toBe('ab')
   expect(undoButton.textContent).toBe('Can undo: true')
@@ -139,7 +139,7 @@ test('can fork history', () => {
   expect(undoButton.textContent).toBe('Can undo: true')
   expect(redoButton.textContent).toBe('Can redo: true')
 
-  keyPress('z')
+  pressKey('z')
 
   expect(getText()).toBe('az')
   expect(undoButton.textContent).toBe('Can undo: true')
