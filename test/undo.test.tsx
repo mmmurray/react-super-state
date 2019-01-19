@@ -54,106 +54,109 @@ const renderApp = () => {
       })
     },
     getText,
-    undoButton: getByTestId('undo'),
-    redoButton: getByTestId('redo'),
+    undo: () => fireEvent.click(getByTestId('undo')),
+    redo: () => fireEvent.click(getByTestId('redo')),
+    canUndo: () => getByTestId('undo').textContent === 'Can undo: true',
+    canRedo: () => getByTestId('redo').textContent === 'Can redo: true',
   }
 }
 
 test('can undo and redo', () => {
-  const { undoButton, redoButton, getText, pressKey } = renderApp()
+  const { canUndo, canRedo, getText, pressKey, undo, redo } = renderApp()
 
   expect(getText()).toBe('')
-  expect(undoButton.textContent).toBe('Can undo: false')
-  expect(redoButton.textContent).toBe('Can redo: false')
+  expect(canUndo()).toBe(false)
+  expect(canRedo()).toBe(false)
 
   pressKey('a')
 
   expect(getText()).toBe('a')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: false')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
 
   pressKey('b')
 
   expect(getText()).toBe('ab')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: false')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
 
-  fireEvent.click(undoButton)
-
-  expect(getText()).toBe('a')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: true')
-
-  fireEvent.click(undoButton)
-
-  expect(getText()).toBe('')
-  expect(undoButton.textContent).toBe('Can undo: false')
-  expect(redoButton.textContent).toBe('Can redo: true')
-
-  fireEvent.click(undoButton)
-  expect(getText()).toBe('')
-  expect(undoButton.textContent).toBe('Can undo: false')
-  expect(redoButton.textContent).toBe('Can redo: true')
-
-  fireEvent.click(redoButton)
+  undo()
 
   expect(getText()).toBe('a')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: true')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(true)
 
-  fireEvent.click(redoButton)
+  undo()
+
+  expect(getText()).toBe('')
+  expect(canUndo()).toBe(false)
+  expect(canRedo()).toBe(true)
+
+  undo()
+
+  expect(getText()).toBe('')
+  expect(canUndo()).toBe(false)
+  expect(canRedo()).toBe(true)
+
+  redo()
+
+  expect(getText()).toBe('a')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(true)
+
+  redo()
 
   expect(getText()).toBe('ab')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: false')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
 
-  fireEvent.click(redoButton)
+  redo()
 
   expect(getText()).toBe('ab')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: false')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
 })
 
 test('can fork history', () => {
-  const { undoButton, redoButton, getText, pressKey } = renderApp()
+  const { undo, redo, canUndo, canRedo, getText, pressKey } = renderApp()
 
   expect(getText()).toBe('')
-  expect(undoButton.textContent).toBe('Can undo: false')
-  expect(redoButton.textContent).toBe('Can redo: false')
+  expect(canUndo()).toBe(false)
+  expect(canRedo()).toBe(false)
 
   pressKey('a')
 
   expect(getText()).toBe('a')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: false')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
 
   pressKey('b')
 
   expect(getText()).toBe('ab')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: false')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
 
-  fireEvent.click(undoButton)
+  undo()
 
   expect(getText()).toBe('a')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: true')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(true)
 
   pressKey('z')
 
   expect(getText()).toBe('az')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: false')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
 
-  fireEvent.click(undoButton)
+  undo()
 
   expect(getText()).toBe('a')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: true')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(true)
 
-  fireEvent.click(redoButton)
+  redo()
 
   expect(getText()).toBe('az')
-  expect(undoButton.textContent).toBe('Can undo: true')
-  expect(redoButton.textContent).toBe('Can redo: false')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
 })
