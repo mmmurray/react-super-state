@@ -34,10 +34,13 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
     { reducer, payload }: { reducer: Reducer<S>; payload?: any },
   ) => {
     if (reducer === undoReducer) {
-      return {
-        states,
-        statePointer: statePointer - 1,
+      if (statePointer > 0) {
+        return {
+          states,
+          statePointer: statePointer - 1,
+        }
       }
+      return { states, statePointer }
     }
 
     return {
