@@ -51,54 +51,54 @@ test('can undo and redo', () => {
   const undoButton = getByTestId('undo')
   const redoButton = getByTestId('redo')
 
-  getByText('Clicked 0 time(s)')
+  expect(incrementButton.textContent).toBe('Clicked 0 time(s)')
   expect(undoButton.textContent).toBe('Can undo: false')
   expect(redoButton.textContent).toBe('Can redo: false')
 
   fireEvent.click(incrementButton)
 
-  getByText('Clicked 1 time(s)')
+  expect(incrementButton.textContent).toBe('Clicked 1 time(s)')
   expect(undoButton.textContent).toBe('Can undo: true')
   expect(redoButton.textContent).toBe('Can redo: false')
 
   fireEvent.click(incrementButton)
 
-  getByText('Clicked 2 time(s)')
+  expect(incrementButton.textContent).toBe('Clicked 2 time(s)')
   expect(undoButton.textContent).toBe('Can undo: true')
   expect(redoButton.textContent).toBe('Can redo: false')
 
   fireEvent.click(undoButton)
 
-  getByText('Clicked 1 time(s)')
+  expect(incrementButton.textContent).toBe('Clicked 1 time(s)')
   expect(undoButton.textContent).toBe('Can undo: true')
   expect(redoButton.textContent).toBe('Can redo: true')
 
   fireEvent.click(undoButton)
 
-  getByText('Clicked 0 time(s)')
+  expect(incrementButton.textContent).toBe('Clicked 0 time(s)')
   expect(undoButton.textContent).toBe('Can undo: false')
   expect(redoButton.textContent).toBe('Can redo: true')
 
   fireEvent.click(undoButton)
-  getByText('Clicked 0 time(s)')
+  expect(incrementButton.textContent).toBe('Clicked 0 time(s)')
   expect(undoButton.textContent).toBe('Can undo: false')
   expect(redoButton.textContent).toBe('Can redo: true')
 
   fireEvent.click(redoButton)
 
-  getByText('Clicked 1 time(s)')
+  expect(incrementButton.textContent).toBe('Clicked 1 time(s)')
   expect(undoButton.textContent).toBe('Can undo: true')
   expect(redoButton.textContent).toBe('Can redo: true')
 
   fireEvent.click(redoButton)
 
-  getByText('Clicked 2 time(s)')
+  expect(incrementButton.textContent).toBe('Clicked 2 time(s)')
   expect(undoButton.textContent).toBe('Can undo: true')
   expect(redoButton.textContent).toBe('Can redo: false')
 
   fireEvent.click(redoButton)
 
-  getByText('Clicked 2 time(s)')
+  expect(incrementButton.textContent).toBe('Clicked 2 time(s)')
   expect(undoButton.textContent).toBe('Can undo: true')
   expect(redoButton.textContent).toBe('Can redo: false')
 })
