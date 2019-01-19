@@ -26,8 +26,8 @@ type ActionOptions = {
   undoable?: boolean
 }
 
-const undoReducer = (state: any) => state
-const redoReducer = (state: any) => state
+const undoReducer = /* istanbul ignore next */ (state: any) => state
+const redoReducer = /* istanbul ignore next */ (state: any) => state
 
 const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
   reducers: R,
@@ -92,8 +92,8 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
   const context = React.createContext<Context<S, Actions>>({
     actions: defaultActions,
     state: initialState,
-    undo: () => {},
-    redo: () => {},
+    undo: /* istanbul ignore next */ () => {},
+    redo: /* istanbul ignore next */ () => {},
     canUndo: false,
     canRedo: false,
   })
