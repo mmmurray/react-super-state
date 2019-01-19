@@ -132,7 +132,6 @@ test('can fork history', () => {
     </Provider>,
   )
 
-  const setToA = getByText('Set to a')
   const setToB = getByText('Set to b')
   const setToC = getByText('Set to c')
   const setToD = getByText('Set to d')
