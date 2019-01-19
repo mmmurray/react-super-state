@@ -11,9 +11,10 @@ A state management library using hooks.
 
 [![Edit 01lyjy810p](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/01lyjy810p)
 
+`state.js`
+
 ```js
 import React from 'react'
-import { render } from 'react-dom'
 import createSuperState from 'react-super-state'
 
 const initialState = {
@@ -27,7 +28,16 @@ const reducers = {
   }),
 }
 
-const { useSuperState, Provider } = createSuperState(reducers, initialState)
+export const { useSuperState, Provider } = createSuperState(
+  reducers,
+  initialState,
+)
+```
+
+`display.js`
+
+```js
+import { useSuperState } from './state'
 
 const Display = () => {
   const { state } = useSuperState()
@@ -35,11 +45,32 @@ const Display = () => {
   return <span>Value is: {state.value}</span>
 }
 
+export default Display
+```
+
+`add.js`
+
+```js
+import React from 'react'
+import { useSuperState } from './state'
+
 const Add = ({ amount }) => {
   const { actions } = useSuperState()
 
   return <button onClick={() => actions.add({ amount })}>Add {amount}</button>
 }
+
+export default Add
+```
+
+`index.js`
+
+```js
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from './state'
+import Add from './add'
+import Display from './display'
 
 const App = () => (
   <Provider>
