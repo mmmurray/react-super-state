@@ -17,6 +17,45 @@ const reducers = {
   setLetter: (state: State, letter: string) => ({ ...state, letter }),
 }
 
+const renderApp = () => {
+  const { useSuperState, Provider } = createSuperState(reducers, initialState)
+
+  const App = () => {
+    const { actions, state, undo, redo, canUndo, canRedo } = useSuperState()
+
+    return (
+      <div>
+        <button onClick={() => actions.setLetter('a')}>Set to a</button>
+        <button onClick={() => actions.setLetter('b')}>Set to b</button>
+        <button onClick={() => actions.setLetter('c')}>Set to c</button>
+        <button onClick={() => actions.setLetter('d')}>Set to d</button>
+        <span data-testid="letter">{state.letter}</span>
+        <button data-testid="undo" onClick={undo}>
+          Can undo: {`${canUndo}`}
+        </button>
+        <button data-testid="redo" onClick={redo}>
+          Can redo: {`${canRedo}`}
+        </button>
+      </div>
+    )
+  }
+
+  const { getByText, getByTestId } = render(
+    <Provider>
+      <App />
+    </Provider>,
+  )
+
+  return {
+    setToB: getByText('Set to b'),
+    setToC: getByText('Set to c'),
+    setToD: getByText('Set to d'),
+    letter: getByTestId('letter'),
+    undoButton: getByTestId('undo'),
+    redoButton: getByTestId('redo'),
+  }
+}
+
 test('can undo and redo', () => {
   const { useSuperState, Provider } = createSuperState(reducers, initialState)
 
@@ -104,40 +143,7 @@ test('can undo and redo', () => {
 })
 
 test('can fork history', () => {
-  const { useSuperState, Provider } = createSuperState(reducers, initialState)
-
-  const App = () => {
-    const { actions, state, undo, redo, canUndo, canRedo } = useSuperState()
-
-    return (
-      <div>
-        <button onClick={() => actions.setLetter('a')}>Set to a</button>
-        <button onClick={() => actions.setLetter('b')}>Set to b</button>
-        <button onClick={() => actions.setLetter('c')}>Set to c</button>
-        <button onClick={() => actions.setLetter('d')}>Set to d</button>
-        <span data-testid="letter">{state.letter}</span>
-        <button data-testid="undo" onClick={undo}>
-          Can undo: {`${canUndo}`}
-        </button>
-        <button data-testid="redo" onClick={redo}>
-          Can redo: {`${canRedo}`}
-        </button>
-      </div>
-    )
-  }
-
-  const { getByText, getByTestId } = render(
-    <Provider>
-      <App />
-    </Provider>,
-  )
-
-  const setToB = getByText('Set to b')
-  const setToC = getByText('Set to c')
-  const setToD = getByText('Set to d')
-  const letter = getByTestId('letter')
-  const undoButton = getByTestId('undo')
-  const redoButton = getByTestId('redo')
+  const { setToB, setToC, setToD, letter, undoButton, redoButton } = renderApp()
 
   expect(letter.textContent).toBe('a')
   expect(undoButton.textContent).toBe('Can undo: false')
