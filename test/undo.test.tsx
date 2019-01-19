@@ -252,7 +252,7 @@ test('can mix undoable and non-undoable actions', () => {
 
   redo()
 
-  expect(getCount()).toBe(4)
+  expect(getCount()).toBe(3)
   expect(getText()).toBe('az')
   expect(canUndo()).toBe(true)
   expect(canRedo()).toBe(false)

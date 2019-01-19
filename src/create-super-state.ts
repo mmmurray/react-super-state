@@ -22,6 +22,10 @@ type InternalState<S> = {
   statePointer: number
 }
 
+type ActionOptions = {
+  undoable?: boolean
+}
+
 const undoReducer = (state: any) => state
 const redoReducer = (state: any) => state
 
@@ -31,7 +35,11 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
 ) => {
   const internalReducer = (
     { states, statePointer }: InternalState<S>,
-    { reducer, payload }: { reducer: Reducer<S>; payload?: any },
+    {
+      reducer,
+      payload,
+      actionOptions,
+    }: { reducer: Reducer<S>; payload?: any; actionOptions: ActionOptions },
   ) => {
     if (reducer === undoReducer) {
       return statePointer > 0
@@ -46,16 +54,31 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
     }
 
     const newState = reducer(states[statePointer], payload)
-    const newStates = [...states.slice(0, statePointer + 1), newState]
+
+    if (actionOptions.undoable) {
+      const newStates = [...states.slice(0, statePointer + 1), newState]
+
+      return {
+        states: newStates,
+        statePointer: newStates.length - 1,
+      }
+    }
 
     return {
-      states: newStates,
-      statePointer: newStates.length - 1,
+      states: [
+        ...states.slice(0, statePointer),
+        newState,
+        ...states.slice(statePointer + 1),
+      ],
+      statePointer,
     }
   }
 
   type Actions = {
-    [N in keyof R]: (payload?: ReducerPayloadType<S, R[N]>) => void
+    [N in keyof R]: (
+      payload?: ReducerPayloadType<S, R[N]>,
+      actionOptions?: ActionOptions,
+    ) => void
   }
 
   const defaultActions: Actions = Object.keys(reducers).reduce<Actions>(
@@ -87,10 +110,11 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
     const actions: Actions = Object.keys(reducers).reduce<Actions>(
       (acc: any, name) => ({
         ...acc,
-        [name]: (payload?: any) =>
+        [name]: (payload?: any, actionOptions: ActionOptions = {}) =>
           dispatch({
             reducer: reducers[name],
             payload,
+            actionOptions,
           }),
       }),
       {} as Actions,
@@ -102,8 +126,8 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
         value: {
           actions,
           state: states[statePointer],
-          undo: () => dispatch({ reducer: undoReducer }),
-          redo: () => dispatch({ reducer: redoReducer }),
+          undo: () => dispatch({ reducer: undoReducer, actionOptions: {} }),
+          redo: () => dispatch({ reducer: redoReducer, actionOptions: {} }),
           canUndo: statePointer > 0,
           canRedo: statePointer < states.length - 1,
         },
