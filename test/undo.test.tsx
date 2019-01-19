@@ -4,14 +4,17 @@ import createSuperState from '../src'
 
 type State = {
   value: string
+  count: number
 }
 
 const initialState: State = {
   value: '',
+  count: 0,
 }
 
 const reducers = {
   setValue: (state: State, value: string) => ({ ...state, value }),
+  incrementCount: (state: State) => ({ ...state, count: state.count + 1 }),
 }
 
 const renderApp = () => {
@@ -34,11 +37,13 @@ const renderApp = () => {
         <button data-testid="redo" onClick={redo}>
           Can redo: {`${canRedo}`}
         </button>
+        <span data-testid="count">{state.count}</span>
+        <button onClick={actions.incrementCount}>increment</button>
       </div>
     )
   }
 
-  const { getByTestId } = render(
+  const { getByText, getByTestId } = render(
     <Provider>
       <App />
     </Provider>,
@@ -58,6 +63,8 @@ const renderApp = () => {
     redo: () => fireEvent.click(getByTestId('redo')),
     canUndo: () => getByTestId('undo').textContent === 'Can undo: true',
     canRedo: () => getByTestId('redo').textContent === 'Can redo: true',
+    increment: () => fireEvent.click(getByText('increment')),
+    getCount: () => Number(getByTestId('count').textContent),
   }
 }
 
@@ -118,6 +125,50 @@ test('can undo and redo', () => {
 })
 
 test('can fork history', () => {
+  const { undo, redo, canUndo, canRedo, getText, pressKey } = renderApp()
+
+  expect(getText()).toBe('')
+  expect(canUndo()).toBe(false)
+  expect(canRedo()).toBe(false)
+
+  pressKey('a')
+
+  expect(getText()).toBe('a')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
+
+  pressKey('b')
+
+  expect(getText()).toBe('ab')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
+
+  undo()
+
+  expect(getText()).toBe('a')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(true)
+
+  pressKey('z')
+
+  expect(getText()).toBe('az')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
+
+  undo()
+
+  expect(getText()).toBe('a')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(true)
+
+  redo()
+
+  expect(getText()).toBe('az')
+  expect(canUndo()).toBe(true)
+  expect(canRedo()).toBe(false)
+})
+
+test('can mix undoable and non-undoable actions', () => {
   const { undo, redo, canUndo, canRedo, getText, pressKey } = renderApp()
 
   expect(getText()).toBe('')
