@@ -86,7 +86,7 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
           state: states[statePointer],
           undo: () => {},
           redo: () => {},
-          canUndo: false,
+          canUndo: statePointer > 0,
           canRedo: false,
         },
       },
