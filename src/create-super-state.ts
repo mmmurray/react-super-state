@@ -105,7 +105,7 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
           actions,
           state: states[statePointer],
           undo: () => dispatch({ reducer: undoReducer }),
-          redo: () => {},
+          redo: () => dispatch({ reducer: redoReducer }),
           canUndo: statePointer > 0,
           canRedo: statePointer < states.length - 1,
         },
