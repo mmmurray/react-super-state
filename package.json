@@ -24,7 +24,7 @@
     "test": "mmm coverage"
   },
   "peerDependencies": {
-    "react": ">16"
+    "react": ">=16.8.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.13",
