@@ -2,6 +2,15 @@
   "name": "react-super-state",
   "version": "1.0.0",
   "description": "A state management library using hooks.",
+  "keywords": [
+    "react",
+    "react-hooks",
+    "hooks",
+    "state",
+    "state-management",
+    "reducer",
+    "typescript"
+  ],
   "author": "Mark Murray <mark@murray.xyz>",
   "license": "MIT",
   "repository": "git@github.com:mmmurray/react-super-state.git",
