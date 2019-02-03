@@ -1,4 +1,4 @@
 module.exports = {
   ...require('mmm-scripts/jest.config'),
-  setupTestFrameworkScriptFile: './test/setup.ts',
+  setupFilesAfterEnv: ['react-testing-library/cleanup-after-each'],
 }
