@@ -259,3 +259,20 @@ test('can mix undoable and non-undoable actions', () => {
   expect(canUndo()).toBe(true)
   expect(canRedo()).toBe(false)
 })
+
+test('unstable undo is disabled by default', () => {
+  const { useSuperState } = createSuperState(reducers, initialState)
+
+  const Foo = () => {
+    const p = useSuperState()
+
+    return <pre>{JSON.stringify(Object.keys(p))}</pre>
+  }
+
+  const { container } = render(<Foo />)
+
+  expect(JSON.parse(container.firstChild.textContent)).toStrictEqual([
+    'actions',
+    'state',
+  ])
+})
