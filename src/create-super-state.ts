@@ -26,12 +26,17 @@ type ActionOptions = {
   undoable?: boolean
 }
 
+type Options = {
+  unstableUndo?: boolean
+}
+
 const undoReducer = /* istanbul ignore next */ (state: any) => state
 const redoReducer = /* istanbul ignore next */ (state: any) => state
 
 const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
   reducers: R,
   initialState: S,
+  options: Options = {},
 ) => {
   const internalReducer = (
     { states, statePointer }: InternalState<S>,
