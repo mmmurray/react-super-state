@@ -27,7 +27,6 @@
     "react": ">=16.8.0"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.13",
     "@types/react": "^16.7.20",
     "mmm-scripts": "^0.0.16",
     "react": "^16.8.0-alpha.1",
