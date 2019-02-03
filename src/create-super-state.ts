@@ -141,7 +141,17 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
     )
   }
 
-  const useSuperState = () => React.useContext(context)
+  const useSuperState = () => {
+    const { actions, state, undo, redo, canUndo, canRedo } = React.useContext(
+      context,
+    )
+
+    if (options.unstableUndo) {
+      return { actions, state, undo, redo, canUndo, canRedo }
+    }
+
+    return { actions, state }
+  }
 
   return { Provider, useSuperState }
 }
