@@ -11,7 +11,7 @@
     "reducer",
     "typescript"
   ],
-  "author": "Mark Murray <mark@murray.xyz>",
+  "author": "Mark Murray",
   "license": "MIT",
   "repository": "git@github.com:mmmurray/react-super-state.git",
   "main": "./lib/index.js",
