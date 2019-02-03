@@ -18,7 +18,9 @@ const reducers = {
 }
 
 const renderApp = () => {
-  const { useSuperState, Provider } = createSuperState(reducers, initialState)
+  const { useSuperState, Provider } = createSuperState(reducers, initialState, {
+    unstableUndo: true,
+  })
 
   const App = () => {
     const { actions, state, undo, redo, canUndo, canRedo } = useSuperState()
