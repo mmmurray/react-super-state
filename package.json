@@ -27,10 +27,10 @@
     "react": ">=16.8.0"
   },
   "devDependencies": {
-    "@types/react": "^16.7.20",
-    "mmm-scripts": "^0.0.16",
-    "react": "^16.8.0-alpha.1",
-    "react-dom": "^16.8.0-alpha.1",
-    "react-testing-library": "^5.4.4"
+    "@types/react": "16.7.20",
+    "mmm-scripts": "0.0.16",
+    "react": "16.8.0-alpha.1",
+    "react-dom": "16.8.0-alpha.1",
+    "react-testing-library": "5.4.4"
   }
 }
