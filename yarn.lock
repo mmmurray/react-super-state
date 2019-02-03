@@ -759,7 +759,7 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@^16.7.20":
+"@types/react@16.7.20":
   version "16.7.20"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.20.tgz#13ae752c012710d0fa800985ca809814b51d3b58"
   integrity sha512-Qd5RWkwl6SL7R2XzLk/cicjVQm1Mhc6HqXY5Ei4pWd1Vi8Fkbd5O0sA398x8fRSTPAuHdDYD9nrWmJMYTJI0vQ==
@@ -4426,10 +4426,10 @@ mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   dependencies:
     minimist "0.0.8"
 
-mmm-scripts@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/mmm-scripts/-/mmm-scripts-0.0.15.tgz#9938b90c3dcf0d78597b16697a0b57ac88190b87"
-  integrity sha512-y8AdSzxcg8LtHvCCeuorMvSrcq8c3xwOCWc+LFhNyEdJ9ppVYdQkxLrMQEt/N3jqCfy4hT+VJN3fdPD6lVGEEQ==
+mmm-scripts@0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/mmm-scripts/-/mmm-scripts-0.0.16.tgz#63892f3440841363d06072e9dbc1103539c97936"
+  integrity sha512-XHVJ5un47MlX22ajEV/sDMzDe1lzMyEIzwDxfCSyWWz4BixnfjMDwbiuDxB2oPKsGtMIwFPNQARjsyeAwl1qPg==
   dependencies:
     "@babel/core" "7.2.2"
     "@babel/plugin-proposal-class-properties" "7.3.0"
@@ -4448,7 +4448,7 @@ mmm-scripts@^0.0.15:
     lodash "4.17.11"
     react-hot-loader "4.6.3"
     resolve "1.10.0"
-    scripts-toolbox "0.0.5"
+    scripts-toolbox "0.0.6"
     typescript "3.2.4"
     webpack-bundle-analyzer "3.0.3"
 
@@ -5279,7 +5279,7 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.8.0-alpha.1:
+react-dom@16.8.0-alpha.1:
   version "16.8.0-alpha.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.0-alpha.1.tgz#dab73b8354ba2e498e3127d18e29d4546cea889e"
   integrity sha512-tZCUM8BpnwUHJmLnUWP9c3vVZxnCqYotj7s4tx7umojG6BKv745KIBtuPTzt0EI0q50GMLEpmT/CPQ8iA61TwQ==
@@ -5309,14 +5309,14 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-testing-library@^5.4.4:
+react-testing-library@5.4.4:
   version "5.4.4"
   resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-5.4.4.tgz#3fa787999492be94b228e4540a7211556bf4fd94"
   integrity sha512-/TiERZ+URSNhZQfjrUXh0VLsiLSmhqP1WP+2e2wWqWqrRIWpcAxrfuBxzlT75LYMDNmicEikaXJqRDi/pqCEDg==
   dependencies:
     dom-testing-library "^3.13.1"
 
-react@^16.8.0-alpha.1:
+react@16.8.0-alpha.1:
   version "16.8.0-alpha.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.0-alpha.1.tgz#c2b32689f3b466d3ce85a634dd9035f789d2cd97"
   integrity sha512-vLwwnhM2dXrCsiQmcSxF2UdZVV5xsiXjK5Yetmy8dVqngJhQ3aw3YJhZN/YmyonxwdimH40wVqFQfsl4gSu2RA==
@@ -5673,10 +5673,10 @@ schema-utils@^1.0.0:
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
 
-scripts-toolbox@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/scripts-toolbox/-/scripts-toolbox-0.0.5.tgz#8d884a818b1df5e615a1f4c4c40de984d37c225f"
-  integrity sha512-RUZhzLE50yaX0Z1Zs0JZfPSODvm0td2OB35qWVx4vlg5tBtXa+k+fjhjDE3mwfVnsPXUbwjqSpNM9H/9osQH4Q==
+scripts-toolbox@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/scripts-toolbox/-/scripts-toolbox-0.0.6.tgz#675a94f28bef0c47da75ddebdd0ee1c6d26780ee"
+  integrity sha512-AZPyy6mtYqInk6TiCgeghcQg1x+xgkT6qy7wA+q66lumAF/9Hoe49rtwkiws6lpTH/B+emAzz/WEnRc1H8ZToA==
   dependencies:
     chalk "2.4.2"
     jest "24.0.0"

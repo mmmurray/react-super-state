@@ -1,10 +1,19 @@
 {
   "name": "react-super-state",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "A state management library using hooks.",
-  "author": "Mark Murray <mark@murray.xyz>",
+  "author": "Mark Murray",
   "license": "MIT",
   "repository": "git@github.com:mmmurray/react-super-state.git",
+  "keywords": [
+    "react",
+    "react-hooks",
+    "hooks",
+    "state",
+    "state-management",
+    "reducer",
+    "typescript"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -15,14 +24,13 @@
     "test": "mmm coverage"
   },
   "peerDependencies": {
-    "react": ">16"
+    "react": ">=16.8.0"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.13",
-    "@types/react": "^16.7.20",
-    "mmm-scripts": "^0.0.15",
-    "react": "^16.8.0-alpha.1",
-    "react-dom": "^16.8.0-alpha.1",
-    "react-testing-library": "^5.4.4"
+    "@types/react": "16.7.20",
+    "mmm-scripts": "0.0.16",
+    "react": "16.8.0-alpha.1",
+    "react-dom": "16.8.0-alpha.1",
+    "react-testing-library": "5.4.4"
   }
 }

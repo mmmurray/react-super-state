@@ -26,12 +26,17 @@ type ActionOptions = {
   undoable?: boolean
 }
 
+type Options = {
+  unstableUndo?: boolean
+}
+
 const undoReducer = /* istanbul ignore next */ (state: any) => state
 const redoReducer = /* istanbul ignore next */ (state: any) => state
 
 const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
   reducers: R,
   initialState: S,
+  options: Options = {},
 ) => {
   const internalReducer = (
     { states, statePointer }: InternalState<S>,
@@ -136,7 +141,17 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
     )
   }
 
-  const useSuperState = () => React.useContext(context)
+  const useSuperState = () => {
+    const { actions, state, undo, redo, canUndo, canRedo } = React.useContext(
+      context,
+    )
+
+    if (options.unstableUndo) {
+      return { actions, state, undo, redo, canUndo, canRedo }
+    }
+
+    return { actions, state }
+  }
 
   return { Provider, useSuperState }
 }

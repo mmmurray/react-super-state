@@ -18,7 +18,9 @@ const reducers = {
 }
 
 const renderApp = () => {
-  const { useSuperState, Provider } = createSuperState(reducers, initialState)
+  const { useSuperState, Provider } = createSuperState(reducers, initialState, {
+    unstableUndo: true,
+  })
 
   const App = () => {
     const { actions, state, undo, redo, canUndo, canRedo } = useSuperState()
@@ -256,4 +258,21 @@ test('can mix undoable and non-undoable actions', () => {
   expect(getText()).toBe('az')
   expect(canUndo()).toBe(true)
   expect(canRedo()).toBe(false)
+})
+
+test('unstable undo is disabled by default', () => {
+  const { useSuperState } = createSuperState(reducers, initialState)
+
+  const Foo = () => {
+    const p = useSuperState()
+
+    return <pre>{JSON.stringify(Object.keys(p))}</pre>
+  }
+
+  const { container } = render(<Foo />)
+
+  expect(JSON.parse(container.firstChild.textContent)).toStrictEqual([
+    'actions',
+    'state',
+  ])
 })

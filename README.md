@@ -5,8 +5,6 @@
 
 A state management library using hooks.
 
-### ⚠️ Note: This library is still in alpha, expect breaking changes.
-
 ## Usage
 
 [![Edit 01lyjy810p](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/01lyjy810p)
