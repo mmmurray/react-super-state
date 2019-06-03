@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@types/react": "16.7.20",
-    "mmm-scripts": "0.0.16",
+    "mmm-scripts": "0.0.20",
     "react": "16.8.0-alpha.1",
     "react-dom": "16.8.0-alpha.1",
     "react-testing-library": "5.4.4"
