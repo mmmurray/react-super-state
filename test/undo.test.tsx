@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react'
-import * as React from 'react'
+import React, { FC } from 'react'
 import createSuperState from '../src'
 
 type State = {
@@ -13,16 +13,30 @@ const initialState: State = {
 }
 
 const reducers = {
-  setValue: (state: State, value: string) => ({ ...state, value }),
-  incrementCount: (state: State) => ({ ...state, count: state.count + 1 }),
+  setValue: (state: State, value: string): State => ({ ...state, value }),
+  incrementCount: (state: State): State => ({
+    ...state,
+    count: state.count + 1,
+  }),
 }
 
-const renderApp = () => {
+type RenderedApp = {
+  pressKey(key: string): void
+  getText(): string
+  undo(): void
+  redo(): void
+  canUndo(): boolean
+  canRedo(): boolean
+  increment(): void
+  getCount(): number
+}
+
+const renderApp = (): RenderedApp => {
   const { useSuperState, Provider } = createSuperState(reducers, initialState, {
     unstableUndo: true,
   })
 
-  const App = () => {
+  const App: FC = () => {
     const { actions, state, undo, redo, canUndo, canRedo } = useSuperState()
 
     return (
@@ -31,7 +45,7 @@ const renderApp = () => {
         <input
           data-testid="input"
           value={state.value}
-          onChange={({ target: { value } }) =>
+          onChange={({ target: { value } }): void =>
             actions.setValue(value, { undoable: true })
           }
         />
@@ -53,26 +67,34 @@ const renderApp = () => {
     </Provider>,
   )
 
-  const getText = () => getByTestId('text').textContent
+  const getText = (): string => getByTestId('text').textContent
 
   return {
-    pressKey: (key: string) => {
+    pressKey: (key: string): void => {
       const input = getByTestId('input') as HTMLInputElement
       fireEvent.change(input, {
         target: { value: input.value + key },
       })
     },
     getText,
-    undo: () => fireEvent.click(getByTestId('undo')),
-    redo: () => fireEvent.click(getByTestId('redo')),
-    canUndo: () => getByTestId('undo').textContent === 'Can undo: true',
-    canRedo: () => getByTestId('redo').textContent === 'Can redo: true',
-    increment: () => fireEvent.click(getByText('increment')),
-    getCount: () => Number(getByTestId('count').textContent),
+    undo: (): void => {
+      fireEvent.click(getByTestId('undo'))
+    },
+    redo: (): void => {
+      fireEvent.click(getByTestId('redo'))
+    },
+    canUndo: (): boolean =>
+      getByTestId('undo').textContent === 'Can undo: true',
+    canRedo: (): boolean =>
+      getByTestId('redo').textContent === 'Can redo: true',
+    increment: (): void => {
+      fireEvent.click(getByText('increment'))
+    },
+    getCount: (): number => Number(getByTestId('count').textContent),
   }
 }
 
-test('can undo and redo', () => {
+test('can undo and redo', (): void => {
   const { canUndo, canRedo, getText, pressKey, undo, redo } = renderApp()
 
   expect(getText()).toBe('')
@@ -128,7 +150,7 @@ test('can undo and redo', () => {
   expect(canRedo()).toBe(false)
 })
 
-test('can fork history', () => {
+test('can fork history', (): void => {
   const { undo, redo, canUndo, canRedo, getText, pressKey } = renderApp()
 
   expect(getText()).toBe('')
@@ -172,7 +194,7 @@ test('can fork history', () => {
   expect(canRedo()).toBe(false)
 })
 
-test('can mix undoable and non-undoable actions', () => {
+test('can mix undoable and non-undoable actions', (): void => {
   const {
     undo,
     redo,
@@ -260,10 +282,10 @@ test('can mix undoable and non-undoable actions', () => {
   expect(canRedo()).toBe(false)
 })
 
-test('unstable undo is disabled by default', () => {
+test('unstable undo is disabled by default', (): void => {
   const { useSuperState } = createSuperState(reducers, initialState)
 
-  const Foo = () => {
+  const Foo: FC = () => {
     const p = useSuperState()
 
     return <pre>{JSON.stringify(Object.keys(p))}</pre>

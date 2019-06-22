@@ -1,6 +1,7 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 
 type Reducer<S> = (state: Readonly<S>, payload?: any) => S
+
 type ReducerPayloadType<S, R extends Function> = R extends (
   state: S,
   payload: infer P,
@@ -30,14 +31,35 @@ type Options = {
   unstableUndo?: boolean
 }
 
-const undoReducer = /* istanbul ignore next */ (state: any) => state
-const redoReducer = /* istanbul ignore next */ (state: any) => state
+const undoReducer = /* istanbul ignore next */ (state: any): any => state
+const redoReducer = /* istanbul ignore next */ (state: any): any => state
+
+type Actions<S, R extends { [name: string]: Reducer<S> }> = {
+  [N in keyof R]: (
+    payload?: ReducerPayloadType<S, R[N]>,
+    actionOptions?: ActionOptions,
+  ) => void
+}
+
+type SuperStateHook<State, Actions> = {
+  actions: Actions
+  state: State
+  undo?(): void
+  redo?(): void
+  canUndo?: boolean
+  canRedo?: boolean
+}
+
+type SuperState<State, Actions> = {
+  Provider: FC
+  useSuperState(): SuperStateHook<State, Actions>
+}
 
 const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
   reducers: R,
   initialState: S,
   options: Options = {},
-) => {
+): SuperState<S, Actions<S, R>> => {
   const internalReducer = (
     { states, statePointer }: InternalState<S>,
     {
@@ -45,7 +67,7 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
       payload,
       actionOptions,
     }: { reducer: Reducer<S>; payload?: any; actionOptions: ActionOptions },
-  ) => {
+  ): InternalState<S> => {
     if (reducer === undoReducer) {
       return statePointer > 0
         ? { states, statePointer: statePointer - 1 }
@@ -79,31 +101,27 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
     }
   }
 
-  type Actions = {
-    [N in keyof R]: (
-      payload?: ReducerPayloadType<S, R[N]>,
-      actionOptions?: ActionOptions,
-    ) => void
-  }
-
-  const defaultActions: Actions = Object.keys(reducers).reduce<Actions>(
-    (acc: any, name) => ({
+  const initialDefaultActions: Actions<S, R> = {} as any
+  const defaultActions: Actions<S, R> = Object.keys(reducers).reduce<
+    Actions<S, R>
+  >(
+    (acc: any, name): Actions<S, R> => ({
       ...acc,
-      [name]: (payload?: any) => {},
+      [name]: (): void => {},
     }),
-    {} as Actions,
+    initialDefaultActions,
   )
 
-  const context = React.createContext<Context<S, Actions>>({
+  const context = React.createContext<Context<S, Actions<S, R>>>({
     actions: defaultActions,
     state: initialState,
-    undo: /* istanbul ignore next */ () => {},
-    redo: /* istanbul ignore next */ () => {},
+    undo: /* istanbul ignore next */ (): void => {},
+    redo: /* istanbul ignore next */ (): void => {},
     canUndo: false,
     canRedo: false,
   })
 
-  const Provider: React.SFC<{}> = ({ children }) => {
+  const Provider: FC = ({ children }) => {
     const [{ states, statePointer }, dispatch] = React.useReducer(
       internalReducer,
       {
@@ -112,17 +130,18 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
       },
     )
 
-    const actions: Actions = Object.keys(reducers).reduce<Actions>(
-      (acc: any, name) => ({
+    const initialActions: Actions<S, R> = {} as any
+    const actions: Actions<S, R> = Object.keys(reducers).reduce<Actions<S, R>>(
+      (acc: any, name): Actions<S, R> => ({
         ...acc,
-        [name]: (payload?: any, actionOptions: ActionOptions = {}) =>
+        [name]: (payload?: any, actionOptions: ActionOptions = {}): void =>
           dispatch({
             reducer: reducers[name],
             payload,
             actionOptions,
           }),
       }),
-      {} as Actions,
+      initialActions,
     )
 
     return React.createElement(
@@ -131,8 +150,10 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
         value: {
           actions,
           state: states[statePointer],
-          undo: () => dispatch({ reducer: undoReducer, actionOptions: {} }),
-          redo: () => dispatch({ reducer: redoReducer, actionOptions: {} }),
+          undo: (): void =>
+            dispatch({ reducer: undoReducer, actionOptions: {} }),
+          redo: (): void =>
+            dispatch({ reducer: redoReducer, actionOptions: {} }),
           canUndo: statePointer > 0,
           canRedo: statePointer < states.length - 1,
         },
@@ -141,7 +162,7 @@ const createSuperState = <S, R extends { [name: string]: Reducer<S> }>(
     )
   }
 
-  const useSuperState = () => {
+  const useSuperState = (): SuperStateHook<S, Actions<S, R>> => {
     const { actions, state, undo, redo, canUndo, canRedo } = React.useContext(
       context,
     )
