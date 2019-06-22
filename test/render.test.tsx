@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { fireEvent, render } from 'react-testing-library'
+import { fireEvent, render } from '@testing-library/react'
+import React, { FC } from 'react'
 import createSuperState from '../src'
 
 type State = {
@@ -11,22 +11,22 @@ const initialState: State = {
 }
 
 const reducers = {
-  increment: (state: State) => ({ ...state, count: state.count + 1 }),
-  add: (state: State, value: { amount: number }) => ({
+  increment: (state: State): State => ({ ...state, count: state.count + 1 }),
+  add: (state: State, value: { amount: number }): State => ({
     ...state,
     count: state.count + value.amount,
   }),
 }
 
-test('can use super state', () => {
+test('can use super state', (): void => {
   const { useSuperState, Provider } = createSuperState(reducers, initialState)
 
-  const Counter = () => {
+  const Counter: FC = () => {
     const { actions, state } = useSuperState()
 
     return (
       <div>
-        <button onClick={() => actions.increment()}>
+        <button onClick={(): void => actions.increment()}>
           Clicked {state.count} time(s)
         </button>
       </div>
@@ -46,15 +46,15 @@ test('can use super state', () => {
   getByText('Clicked 1 time(s)')
 })
 
-test('state is initial and immutable when not wrapped in a provider', () => {
+test('state is initial and immutable when not wrapped in a provider', (): void => {
   const { useSuperState } = createSuperState(reducers, initialState)
 
-  const Counter = () => {
+  const Counter: FC = () => {
     const { actions, state } = useSuperState()
 
     return (
       <div>
-        <button onClick={() => actions.increment()}>
+        <button onClick={(): void => actions.increment()}>
           Clicked {state.count} time(s)
         </button>
       </div>
@@ -70,14 +70,14 @@ test('state is initial and immutable when not wrapped in a provider', () => {
   getByText('Clicked 0 time(s)')
 })
 
-test('can pass value to reducer', () => {
+test('can pass value to reducer', (): void => {
   const { useSuperState, Provider } = createSuperState(reducers, initialState)
 
-  const Counter = () => {
+  const Counter: FC = () => {
     const { actions, state } = useSuperState()
     return (
       <div>
-        <button onClick={() => actions.add({ amount: 22 })}>
+        <button onClick={(): void => actions.add({ amount: 22 })}>
           Clicked {state.count} time(s)
         </button>
       </div>
