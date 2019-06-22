@@ -21,6 +21,7 @@
     "commit": "mmm commit",
     "jest": "mmm jest",
     "prepare": "yarn build",
+    "release": "semantic-release --dry-run",
     "test": "yarn test:coverage && yarn test:lint",
     "test:coverage": "mmm test:coverage",
     "test:lint": "mmm test:lint"
@@ -33,7 +34,8 @@
     "@types/react": "16.8.22",
     "mmm-scripts": "0.1.5",
     "react": "16.8.6",
-    "react-dom": "16.8.6"
+    "react-dom": "16.8.6",
+    "semantic-release": "15.13.16"
   },
   "commitlint": {
     "extends": [
