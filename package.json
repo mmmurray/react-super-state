@@ -17,20 +17,41 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf lib && mmm build",
-    "format": "mmm format",
+    "build": "mmm build",
+    "commit": "mmm commit",
     "jest": "mmm jest",
     "prepare": "yarn build",
-    "test": "mmm coverage"
+    "test": "yarn test:coverage",
+    "test:coverage": "mmm test:coverage",
+    "test:lint": "mmm test:lint"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
   },
   "devDependencies": {
-    "@types/react": "16.8.19",
-    "mmm-scripts": "0.0.20",
+    "@testing-library/react": "8.0.1",
+    "@types/react": "16.8.22",
+    "mmm-scripts": "0.1.5",
     "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-testing-library": "5.4.4"
-  }
+    "react-dom": "16.8.6"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-mmm/ts-react"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "mmm precommit"
+    }
+  },
+  "prettier": "mmm-scripts/prettier.config"
 }

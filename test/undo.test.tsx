@@ -1,5 +1,5 @@
+import { fireEvent, render } from '@testing-library/react'
 import * as React from 'react'
-import { fireEvent, render } from 'react-testing-library'
 import createSuperState from '../src'
 
 type State = {
