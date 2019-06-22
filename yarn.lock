@@ -5808,10 +5808,10 @@ mixin-deep@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
-mmm-scripts@0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/mmm-scripts/-/mmm-scripts-0.1.5.tgz#97d454ecd3bc762d94bbeeb6aef94cc5e79d078b"
-  integrity sha512-QEcfRsvZebaWO+fFJPqFb5ARBghzorFj/wVr/Z3ldFfurzHwZhWK5vbg1ldFI4QSUKCjW/W0pv6UGJVcAZBhKg==
+mmm-scripts@0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/mmm-scripts/-/mmm-scripts-0.1.6.tgz#bde37d9a1fcbf07dbcc75a701f2915355c7a8792"
+  integrity sha512-Bom1cE5s0p3yBbk7xdKGdufcJilcBI4ALx2DJUMBQaIFcXgMP7AXcjaPxcpnBdWTENfAiFojUUusOqyLuRwhvw==
   dependencies:
     "@babel/core" "7.4.5"
     "@babel/plugin-proposal-class-properties" "7.4.4"
