@@ -21,7 +21,7 @@
     "commit": "mmm commit",
     "jest": "mmm jest",
     "prepare": "yarn build",
-    "release": "semantic-release --dry-run",
+    "release": "semantic-release",
     "test": "yarn test:coverage && yarn test:lint",
     "test:coverage": "mmm test:coverage",
     "test:lint": "mmm test:lint"
