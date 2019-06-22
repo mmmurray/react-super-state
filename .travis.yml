@@ -10,7 +10,10 @@ branches:
     - 'master'
 jobs:
   include:
-    # Define the release stage that runs semantic-release
     - stage: release
       node_js: '10'
-      script: 'yarn release'
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - 'yarn release'
