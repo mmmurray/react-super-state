@@ -1265,10 +1265,10 @@
   resolved "https://registry.yarnpkg.com/@types/jest-diff/-/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
   integrity sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
 
-"@types/jest@24.0.13":
-  version "24.0.13"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.13.tgz#10f50b64cb05fb02411fbba49e9042a3a11da3f9"
-  integrity sha512-3m6RPnO35r7Dg+uMLj1+xfZaOgIHHHut61djNjzwExXN4/Pm9has9C6I1KMYSfz7mahDhWUOVg4HW/nZdv5Pww==
+"@types/jest@24.0.15":
+  version "24.0.15"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.15.tgz#6c42d5af7fe3b44ffff7cc65de7bf741e8fa427f"
+  integrity sha512-MU1HIvWUme74stAoc3mgAi+aMlgKOudgEvQDIm1v4RkrDudBh1T+NFp5sftpBAdXdx1J0PbdpJ+M2EsSOi1djA==
   dependencies:
     "@types/jest-diff" "*"
 
@@ -1277,15 +1277,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
-"@types/node@*":
+"@types/node@*", "@types/node@12.0.10":
   version "12.0.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.10.tgz#51babf9c7deadd5343620055fc8aff7995c8b031"
   integrity sha512-LcsGbPomWsad6wmMNv7nBLw7YYYyfdYcz6xryKYQhx89c3XXan+8Q6AJ43G5XDIaklaVkK3mE4fCb0SBvMiPSQ==
-
-"@types/node@12.0.4":
-  version "12.0.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.4.tgz#46832183115c904410c275e34cf9403992999c32"
-  integrity sha512-j8YL2C0fXq7IONwl/Ud5Kt0PeXw22zGERt+HSSnwbKOJVsAGkEz3sFCYwaF9IOuoG1HOtE0vKCj6sXF7Q0+Vaw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -1308,14 +1303,6 @@
   version "16.8.22"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.22.tgz#7f18bf5ea0c1cad73c46b6b1c804a3ce0eec6d54"
   integrity sha512-C3O1yVqk4sUXqWyx0wlys76eQfhrQhiDhDlHBrjER76lR2S2Agiid/KpOU9oCqj1dISStscz7xXz1Cg8+sCQeA==
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^2.2.0"
-
-"@types/react@16.8.19":
-  version "16.8.19"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.19.tgz#629154ef05e2e1985cdde94477deefd823ad9be3"
-  integrity sha512-QzEzjrd1zFzY9cDlbIiFvdr+YUmefuuRYrPxmkwG0UQv5XF35gFIi7a95m1bNVcFU0VimxSZ5QVGSiBmlggQXQ==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -4636,10 +4623,10 @@ jest-docblock@^24.3.0:
   dependencies:
     detect-newline "^2.1.0"
 
-jest-dom@3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/jest-dom/-/jest-dom-3.4.0.tgz#46c21984a73a4841dc57bc8fc09ccd1d971a8447"
-  integrity sha512-fQR5ESaxTfNbZE02y+gtaQH7+sMwzrQtJo5OE0E3BNArjTL9GWNI+uPFr1yS24eodH1X62L+qncv106M/O98gQ==
+jest-dom@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/jest-dom/-/jest-dom-3.5.0.tgz#715908b545c0d66a0eba9d21fc59357fac024f43"
+  integrity sha512-xHnP3Qo/29oLAo2iixaZsoDrm3XKSVrMH5Wf2ZEiLychJQBTNzOeVMPxrCygCgJiyQMbnymXltme8bPzuiGOIA==
   dependencies:
     chalk "^2.4.1"
     css "^2.2.3"
@@ -5808,10 +5795,10 @@ mixin-deep@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
-mmm-scripts@0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/mmm-scripts/-/mmm-scripts-0.1.6.tgz#bde37d9a1fcbf07dbcc75a701f2915355c7a8792"
-  integrity sha512-Bom1cE5s0p3yBbk7xdKGdufcJilcBI4ALx2DJUMBQaIFcXgMP7AXcjaPxcpnBdWTENfAiFojUUusOqyLuRwhvw==
+mmm-scripts@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/mmm-scripts/-/mmm-scripts-0.2.0.tgz#6dc11e1222fa6fdb0e74f9f07714bbc7f25fd274"
+  integrity sha512-B6N0WBaKoyb13dg5ikGL3qVwh/OqjgLnuOqsPi+Rd0UbKHPssCT2moC3ZjfzkzF1rpzBa2/IIC/7vOCHDdE8SA==
   dependencies:
     "@babel/core" "7.4.5"
     "@babel/plugin-proposal-class-properties" "7.4.4"
@@ -5822,9 +5809,9 @@ mmm-scripts@0.1.6:
     "@commitlint/cli" "^8.0.0"
     "@commitlint/config-conventional" "^8.0.0"
     "@hot-loader/react-dom" "16.8.6"
-    "@types/jest" "24.0.13"
-    "@types/node" "12.0.4"
-    "@types/react" "16.8.19"
+    "@types/jest" "24.0.15"
+    "@types/node" "12.0.10"
+    "@types/react" "16.8.22"
     "@types/react-dom" "16.8.4"
     babel-jest "24.8.0"
     babel-loader "8.0.6"
@@ -5836,12 +5823,13 @@ mmm-scripts@0.1.6:
     fs-extra "^8.0.1"
     husky "^2.4.1"
     jest "^24.8.0"
-    jest-dom "3.4.0"
+    jest-dom "3.5.0"
     jest-watch-typeahead "0.3.1"
     lodash "4.17.11"
     prettier "^1.18.2"
-    react-hot-loader "4.9.0"
-    resolve "1.11.0"
+    react-hot-loader "4.11.1"
+    resolve "1.11.1"
+    semantic-release "15.13.16"
     start-server-webpack-plugin "^2.2.5"
     typescript "^3.5.2"
     webpack-bundle-analyzer "3.3.2"
@@ -7002,10 +6990,10 @@ react-dom@16.8.6:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
-react-hot-loader@4.9.0:
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.9.0.tgz#498e5f76aae28bfd420efdabddf5af156745b4dd"
-  integrity sha512-1N6MWV9++qYWrrs41MRhxATwyx743tr8RpeyL1VOZ54zsU8fOx4slYreHZ8v2BDGVfy+dJ0myJZrJA9/26RlCA==
+react-hot-loader@4.11.1:
+  version "4.11.1"
+  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.11.1.tgz#2cabbd0f1c8a44c28837b86d6ce28521e6d9a8ac"
+  integrity sha512-HAC0UedYzM3mD+ZaQHesntFO0yi2ftOV4ZMMRTj43E4GvW5sQqYTPvur+6J7EaH3MDr/RqjDKXyCqKepV8+y7w==
   dependencies:
     fast-levenshtein "^2.0.6"
     global "^4.3.0"
@@ -7413,14 +7401,7 @@ resolve@1.1.7:
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
   integrity sha1-IDEU2CrSxe2ejgQRs5ModeiJ6Xs=
 
-resolve@1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.11.0.tgz#4014870ba296176b86343d50b60f3b50609ce232"
-  integrity sha512-WL2pBDjqT6pGUNSUzMw00o4T7If+z4H2x3Gz893WoUQ5KW8Vr9txp00ykiP16VBaZF5+j/OcXJHZ9+PCvdiDKw==
-  dependencies:
-    path-parse "^1.0.6"
-
-resolve@^1.1.6, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.3.2:
+resolve@1.11.1, resolve@^1.1.6, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.3.2:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.11.1.tgz#ea10d8110376982fef578df8fc30b9ac30a07a3e"
   integrity sha512-vIpgF6wfuJOZI7KKKSP+HmiKggadPQAdsp5HiC1mvqnfp0gF1vdwgBWZIdrVft9pgqoMFQN+R7BSWZiBxx+BBw==

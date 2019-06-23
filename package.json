@@ -20,9 +20,8 @@
     "build": "mmm build",
     "commit": "mmm commit",
     "jest": "mmm jest",
-    "prepare": "yarn build",
-    "release": "semantic-release",
-    "test": "yarn test:coverage && yarn test:lint",
+    "release": "mmm release",
+    "test": "mmm test",
     "test:coverage": "mmm test:coverage",
     "test:lint": "mmm test:lint"
   },
@@ -32,10 +31,9 @@
   "devDependencies": {
     "@testing-library/react": "8.0.1",
     "@types/react": "16.8.22",
-    "mmm-scripts": "0.1.6",
+    "mmm-scripts": "0.2.0",
     "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "semantic-release": "15.13.16"
+    "react-dom": "16.8.6"
   },
   "commitlint": {
     "extends": [
