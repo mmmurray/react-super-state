@@ -20,7 +20,6 @@
     "build": "mmm build",
     "commit": "mmm commit",
     "jest": "mmm jest",
-    "prepare": "yarn build",
     "release": "mmm release",
     "test": "mmm test",
     "test:coverage": "mmm test:coverage",
