@@ -7,7 +7,7 @@ A state management library using hooks.
 
 ## Usage
 
-[![Edit 01lyjy810p](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/01lyjy810p)
+[![Edit react-super-state JS example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/01lyjy810p)
 
 `state.js`
 
@@ -91,6 +91,8 @@ The object returned from `createSuperState` contains a `Provider` and a `useSupe
 - It is strongly advised to avoid mutating the state object that is passed to the reducer functions and returned from `useSuperState`.
 
 ## TypeScript
+
+[![Edit react-super-state TS example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/5v7q7zvzvl)
 
 React Super State includes full TypeScript definitions. Type information is infered from the initial state object and the reducer function arguments so that the `state` and `actions` objects returned from `useSuperState` are fully typed to provide an fully type safe API.
 
